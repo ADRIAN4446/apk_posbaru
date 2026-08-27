@@ -1,0 +1,33 @@
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\User;
+
+class Produk extends Model
+{
+    use SoftDeletes;
+
+    protected $table = 'produk';
+
+    protected $fillable = [
+        'user_id',
+        'nama',
+        'harga_beli',
+        'harga_jual',
+        'stok',
+        'foto',
+    ];
+
+    /**
+     * Produk dimiliki oleh user
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+}
+```
