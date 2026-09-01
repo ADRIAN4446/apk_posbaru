@@ -254,4 +254,4 @@
     // Jalankan pertama kali & perbarui setiap detik
     updateNavbarClock();
     setInterval(updateNavbarClock, 1000);
-</script><?php /**PATH C:\laragon\www\POS_APK3\resources\views/layouts/navbar.blade.php ENDPATH**/ ?>
+</script><?php /**PATH C:\laragon\www\apk_posbaru\resources\views/layouts/navbar.blade.php ENDPATH**/ ?>

@@ -14,13 +14,11 @@ class ProdukController extends Controller
         $query = Produk::query();
 
         if ($request->filled('search')) {
-            $search = $request->search;
+    $search = $request->search;
 
-            $query->where(function ($q) use ($search) {
-                $q->where('nama', 'like', "%{$search}%")
-                  ->orWhere('kode_produk', 'like', "%{$search}%");
-            });
-        }
+    $query->where('nama', 'like', "%{$search}%");
+}
+
 
         $produks = $query->latest()->take(10)->get();
 

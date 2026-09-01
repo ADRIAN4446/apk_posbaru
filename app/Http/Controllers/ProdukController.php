@@ -14,25 +14,24 @@ class ProdukController extends Controller
      * Menampilkan daftar produk
      */
     public function index(Request $request)
-    {
-        $query = Produk::query();
+{
+    $query = Produk::query();
 
-        // Pencarian produk (hanya berdasarkan nama)
-        if ($request->filled('search')) {
-            $search = $request->search;
+    // Pencarian produk (hanya berdasarkan nama)
+    if ($request->filled('search')) {
+        $search = $request->search;
 
-            $query->where('nama', 'like', "%{$search}%");
-        }
-
-        // Ambil maksimal 10 produk terbaru
-        $produks = $query
-            ->latest()
-            ->take(10)
-            ->get();
-
-        return view('produk.index', compact('produks'));
+        $query->where('nama', 'like', "%{$search}%");
     }
 
+    // Ambil maksimal 10 produk terbaru
+    $produks = $query
+        ->latest()
+        ->take(10)
+        ->get();
+
+    return view('produk.index', compact('produks'));
+}
 
     /**
      * Menampilkan form tambah produk

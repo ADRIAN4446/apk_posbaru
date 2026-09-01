@@ -25,4 +25,4 @@
 </body>
 
 </html>
-<?php /**PATH C:\laragon\www\POS_APK3\resources\views/layouts/app.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\laragon\www\apk_posbaru\resources\views/layouts/app.blade.php ENDPATH**/ ?>
