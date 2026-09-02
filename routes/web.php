@@ -5,6 +5,7 @@ use App\Http\Controllers\Authcontroller;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemPenjualanController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\JenisController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
 
@@ -44,5 +45,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('/produk', ProdukController::class);
         Route::resource('/penjualan', PenjualanController::class);
         Route::resource('/itempenjualan', ItemPenjualanController::class);
+        Route::resource('jenis', JenisController::class)->parameters([
+    'jenis' => 'jenis'
+        ]);
     });
 });

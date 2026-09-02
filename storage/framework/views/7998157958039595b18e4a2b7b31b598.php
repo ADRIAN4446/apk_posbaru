@@ -22,8 +22,10 @@
     .navbar-custom .brand-icon {
         width: 36px;
         height: 36px;
-        background: #ffffff;                    /* ← diubah jadi putih */
-        border: 1px solid #e5e7eb;              /* garis tipis biar kelihatan */
+        background: #ffffff;
+        /* ← diubah jadi putih */
+        border: 1px solid #e5e7eb;
+        /* garis tipis biar kelihatan */
         border-radius: 0.625rem;
         display: flex;
         align-items: center;
@@ -137,9 +139,8 @@
         
         <a class="navbar-brand" href="<?php echo e(url('/dashboard')); ?>">
             <div class="brand-icon">
-                <img src="<?php echo e(asset('images/smkn4baru.png')); ?>" 
-                     alt="Logo Sekolah" 
-                     style="width: 28px; height: 28px; object-fit: contain;">
+                <img src="<?php echo e(asset('images/smkn4baru.png')); ?>" alt="Logo Sekolah"
+                    style="width: 28px; height: 28px; object-fit: contain;">
             </div>
             <span><span style="color: #000000;">POS Adrian</span></span>
         </a>
@@ -152,78 +153,81 @@
         </button>
 
         
-        <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-1">
-                <li class="nav-item">
-                    <a class="nav-link <?php echo e(request()->is('dashboard') ? 'active' : ''); ?>" href="<?php echo e(url('/dashboard')); ?>">
-                        <i class="bi bi-grid-fill"></i> Dashboard
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo e(request()->is('admin/users*') ? 'active' : ''); ?>"
-                        href="<?php echo e(route('admin.users')); ?>">
-                        <i class="bi bi-people-fill"></i> Users
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo e(request()->is('produk*') ? 'active' : ''); ?>" href="<?php echo e(url('/produk')); ?>">
-                        <i class="bi bi-box-fill"></i> Produk
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link <?php echo e(request()->is('penjualan*') ? 'active' : ''); ?>"
-                        href="<?php echo e(url('/penjualan')); ?>">
-                        <i class="bi bi-file-earmark-bar-graph-fill"></i> Penjualan
-                    </a>
-                </li>
-            </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-1">
+            <li class="nav-item">
+                <a class="nav-link <?php echo e(request()->is('dashboard') ? 'active' : ''); ?>" href="<?php echo e(url('/dashboard')); ?>">
+                    <i class="bi bi-grid-fill"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo e(request()->is('admin/users*') ? 'active' : ''); ?>"
+                    href="<?php echo e(route('admin.users')); ?>">
+                    <i class="bi bi-people-fill"></i> Users
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo e(request()->is('produk*') ? 'active' : ''); ?>" href="<?php echo e(url('/produk')); ?>">
+                    <i class="bi bi-box-fill"></i> Produk
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo e(request()->is('jenis*') ? 'active' : ''); ?>" href="<?php echo e(url('/jenis')); ?>">
+                    <i class="bi bi-tags-fill"></i> Jenis
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?php echo e(request()->is('penjualan*') ? 'active' : ''); ?>" href="<?php echo e(url('/penjualan')); ?>">
+                    <i class="bi bi-file-earmark-bar-graph-fill"></i> Penjualan
+                </a>
+            </li>
+        </ul>
+
+        
+        <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
 
             
-            <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+            <div class="live-clock-pill">
+                <i class="bi bi-clock-history text-muted"></i>
+                <span id="nav-live-date" class="text-muted small d-none d-md-inline"></span>
+                <span id="nav-live-clock" class="fw-bold font-monospace text-dark">00:00:00 WIB</span>
+            </div>
 
-                
-                <div class="live-clock-pill">
-                    <i class="bi bi-clock-history text-muted"></i>
-                    <span id="nav-live-date" class="text-muted small d-none d-md-inline"></span>
-                    <span id="nav-live-clock" class="fw-bold font-monospace text-dark">00:00:00 WIB</span>
-                </div>
+            
+            <div class="dropdown">
+                <button class="btn user-pill d-flex align-items-center gap-2 dropdown-toggle border-0" type="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="avatar-circle">
+                        <?php echo e(strtoupper(substr(Auth::user()->name ?? 'K', 0, 1))); ?>
 
-                
-                <div class="dropdown">
-                    <button class="btn user-pill d-flex align-items-center gap-2 dropdown-toggle border-0"
-                        type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="avatar-circle">
-                            <?php echo e(strtoupper(substr(Auth::user()->name ?? 'K', 0, 1))); ?>
+                    </div>
+                    <span class="fw-semibold small text-dark pe-1"><?php echo e(Auth::user()->name ?? 'kuda'); ?></span>
+                </button>
 
-                        </div>
-                        <span class="fw-semibold small text-dark pe-1"><?php echo e(Auth::user()->name ?? 'kuda'); ?></span>
-                    </button>
-
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <?php if(Route::has('profile.edit')): ?>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center gap-2"
-                                    href="<?php echo e(route('profile.edit')); ?>">
-                                    <i class="bi bi-person fs-6"></i> Profil
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider border-secondary opacity-15 my-1">
-                            </li>
-                        <?php endif; ?>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <?php if(Route::has('profile.edit')): ?>
                         <li>
-                            <form action="<?php echo e(route('logout')); ?>" method="POST">
-                                <?php echo csrf_field(); ?>
-                                <button type="submit"
-                                    class="dropdown-item text-danger d-flex align-items-center gap-2 w-100 border-0 bg-transparent text-start">
-                                    <i class="bi bi-box-arrow-right fs-6"></i> Keluar
-                                </button>
-                            </form>
+                            <a class="dropdown-item d-flex align-items-center gap-2"
+                                href="<?php echo e(route('profile.edit')); ?>">
+                                <i class="bi bi-person fs-6"></i> Profil
+                            </a>
                         </li>
-                    </ul>
-                </div>
+                        <li>
+                            <hr class="dropdown-divider border-secondary opacity-15 my-1">
+                        </li>
+                    <?php endif; ?>
+                    <li>
+                        <form action="<?php echo e(route('logout')); ?>" method="POST">
+                            <?php echo csrf_field(); ?>
+                            <button type="submit"
+                                class="dropdown-item text-danger d-flex align-items-center gap-2 w-100 border-0 bg-transparent text-start">
+                                <i class="bi bi-box-arrow-right fs-6"></i> Keluar
+                            </button>
+                        </form>
+                    </li>
+                </ul>
             </div>
         </div>
+    </div>
     </div>
 </nav>
 
@@ -232,7 +236,7 @@
         const now = new Date();
 
         // Format Waktu (HH:MM:SS)
-        const hours   = String(now.getHours()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
         const minutes = String(now.getMinutes()).padStart(2, '0');
         const seconds = String(now.getSeconds()).padStart(2, '0');
 
@@ -242,7 +246,11 @@
         }
 
         // Format Tanggal Indonesia (Contoh: Jum, 31 Jul)
-        const options = { weekday: 'short', day: 'numeric', month: 'short' };
+        const options = {
+            weekday: 'short',
+            day: 'numeric',
+            month: 'short'
+        };
         const formattedDate = now.toLocaleDateString('id-ID', options);
 
         const dateElem = document.getElementById('nav-live-date');
@@ -254,4 +262,5 @@
     // Jalankan pertama kali & perbarui setiap detik
     updateNavbarClock();
     setInterval(updateNavbarClock, 1000);
-</script><?php /**PATH C:\laragon\www\apk_posbaru\resources\views/layouts/navbar.blade.php ENDPATH**/ ?>
+</script>
+<?php /**PATH C:\laragon\www\apk_posbaru\resources\views/layouts/navbar.blade.php ENDPATH**/ ?>

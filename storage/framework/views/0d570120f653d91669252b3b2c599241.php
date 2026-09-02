@@ -160,6 +160,38 @@ unset($__errorArgs, $__bag); ?>" id="nama"
                             name="nama" value="<?php echo e(old('nama')); ?>" placeholder="Contoh: Kemeja Flanel Hitam" required>
                     </div>
 
+                    
+                    <div class="mb-3">
+                        <label for="jenis_id" class="form-label">Jenis Produk <span class="text-danger">*</span></label>
+                        <select name="jenis_id" id="jenis_id" class="form-select <?php $__errorArgs = ['jenis_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>"
+                            required>
+                            <option value="">-- Pilih Jenis Produk --</option>
+                            <?php $__currentLoopData = \App\Models\Jenis::orderBy('nama_jenis')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option value="<?php echo e($item->id); ?>" <?php echo e(old('jenis_id') == $item->id ? 'selected' : ''); ?>>
+                                    <?php echo e($item->nama_jenis); ?>
+
+                                </option>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </select>
+                        <?php $__errorArgs = ['jenis_id'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <div class="invalid-feedback"><?php echo e($message); ?></div>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="harga_beli" class="form-label">Harga Beli (Rp) <span
@@ -213,11 +245,13 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>" id="foto"
                                 name="foto" accept="image/*">
-                            <div class="form-text text-muted" style="font-size: 0.75rem;">Format: JPG, PNG, JPEG (Maks. 2MB).</div>
+                            <div class="form-text text-muted" style="font-size: 0.75rem;">Format: JPG, PNG, JPEG (Maks.
+                                2MB).</div>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-10">
+                    <div
+                        class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-10">
                         <a href="<?php echo e(route('produk.index')); ?>" class="btn btn-outline-mono">
                             <i class="bi bi-arrow-left"></i> Batal
                         </a>
@@ -233,4 +267,5 @@ unset($__errorArgs, $__bag); ?>" id="foto"
     </div>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\apk_posbaru\resources\views/produk/create.blade.php ENDPATH**/ ?>

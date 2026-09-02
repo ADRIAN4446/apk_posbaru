@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use Illuminate\Http\Request;
+use App\Models\Jenis;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException;
@@ -14,41 +15,42 @@ class ProdukController extends Controller
      * Menampilkan daftar produk
      */
     public function index(Request $request)
-{
-    $query = Produk::query();
+    {
+        $query = Produk::query();
 
-    // Pencarian produk (hanya berdasarkan nama)
-    if ($request->filled('search')) {
-        $search = $request->search;
+        // Pencarian produk (hanya berdasarkan nama)
+        if ($request->filled('search')) {
+            $search = $request->search;
 
-        $query->where('nama', 'like', "%{$search}%");
+            $query->where('nama', 'like', "%{$search}%");
+        }
+
+        // Ambil maksimal 10 produk terbaru
+        $produks = $query
+            ->latest()
+            ->take(10)
+            ->get();
+
+        return view('produk.index', compact('produks'));
     }
-
-    // Ambil maksimal 10 produk terbaru
-    $produks = $query
-        ->latest()
-        ->take(10)
-        ->get();
-
-    return view('produk.index', compact('produks'));
-}
 
     /**
      * Menampilkan form tambah produk
      */
+
     public function create()
     {
-        return view('produk.create');
+        dd('METHOD CREATE SUDAH JALAN DARI FILE YANG BENAR');
+
+        $jenis = Jenis::orderBy('nama_jenis')->get();
+        return view('produk.create', compact('jenis'));
     }
 
-
-    /**
-     * Menyimpan produk baru
-     */
     public function store(Request $request)
     {
         $request->validate([
             'nama'       => 'required|string|max:255',
+            'jenis_id'   => 'required|exists:jenis,id',      // ← tambah validasi
             'harga_beli' => 'required|numeric',
             'harga_jual' => 'required|numeric',
             'stok'       => 'required|integer|min:0',
@@ -58,6 +60,7 @@ class ProdukController extends Controller
         $produk = new Produk();
 
         $produk->user_id    = Auth::id();
+        $produk->jenis_id   = $request->jenis_id;           // ← simpan jenis
         $produk->nama       = $request->nama;
         $produk->harga_beli = $request->harga_beli;
         $produk->harga_jual = $request->harga_jual;
@@ -152,7 +155,6 @@ class ProdukController extends Controller
             return redirect()
                 ->route('produk.index')
                 ->with('success', 'Produk berhasil dihapus!');
-
         } catch (QueryException $e) {
 
             return redirect()

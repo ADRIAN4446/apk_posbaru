@@ -155,6 +155,23 @@
                             name="nama" value="{{ old('nama') }}" placeholder="Contoh: Kemeja Flanel Hitam" required>
                     </div>
 
+                    {{-- Jenis Produk --}}
+                    <div class="mb-3">
+                        <label for="jenis_id" class="form-label">Jenis Produk <span class="text-danger">*</span></label>
+                        <select name="jenis_id" id="jenis_id" class="form-select @error('jenis_id') is-invalid @enderror"
+                            required>
+                            <option value="">-- Pilih Jenis Produk --</option>
+                            @foreach (\App\Models\Jenis::orderBy('nama_jenis')->get() as $item)
+                                <option value="{{ $item->id }}" {{ old('jenis_id') == $item->id ? 'selected' : '' }}>
+                                    {{ $item->nama_jenis }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('jenis_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="harga_beli" class="form-label">Harga Beli (Rp) <span
@@ -180,11 +197,13 @@
                             <label for="foto" class="form-label">Foto Produk</label>
                             <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto"
                                 name="foto" accept="image/*">
-                            <div class="form-text text-muted" style="font-size: 0.75rem;">Format: JPG, PNG, JPEG (Maks. 2MB).</div>
+                            <div class="form-text text-muted" style="font-size: 0.75rem;">Format: JPG, PNG, JPEG (Maks.
+                                2MB).</div>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-10">
+                    <div
+                        class="d-flex justify-content-between align-items-center pt-3 border-top border-secondary border-opacity-10">
                         <a href="{{ route('produk.index') }}" class="btn btn-outline-mono">
                             <i class="bi bi-arrow-left"></i> Batal
                         </a>
