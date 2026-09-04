@@ -8,6 +8,7 @@ use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\JenisController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -25,6 +26,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::post('/logout', [Authcontroller::class, 'logout'])->name('logout');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     // Admin Role Routes
     Route::middleware('role:admin')->prefix('admin')->name('admin.')->group(function () {

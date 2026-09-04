@@ -204,10 +204,10 @@
                 </button>
 
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <?php if(Route::has('profile.edit')): ?>
+                    <?php if(Route::has('profile.index')): ?>
                         <li>
                             <a class="dropdown-item d-flex align-items-center gap-2"
-                                href="<?php echo e(route('profile.edit')); ?>">
+                                href="<?php echo e(route('profile.index')); ?>">
                                 <i class="bi bi-person fs-6"></i> Profil
                             </a>
                         </li>

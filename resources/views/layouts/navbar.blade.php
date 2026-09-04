@@ -203,10 +203,10 @@
                 </button>
 
                 <ul class="dropdown-menu dropdown-menu-end">
-                    @if (Route::has('profile.edit'))
+                    @if (Route::has('profile.index'))
                         <li>
                             <a class="dropdown-item d-flex align-items-center gap-2"
-                                href="{{ route('profile.edit') }}">
+                                href="{{ route('profile.index') }}">
                                 <i class="bi bi-person fs-6"></i> Profil
                             </a>
                         </li>
